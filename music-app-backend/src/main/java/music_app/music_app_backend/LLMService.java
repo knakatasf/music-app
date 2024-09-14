@@ -1,6 +1,6 @@
 package music_app.music_app_backend;
 
-import org.springframework.beans.factory.annotation.Value;
+import music_app.music_app_backend.keys.ApiKeys;
 import org.springframework.stereotype.Service;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
@@ -8,8 +8,6 @@ import dev.langchain4j.service.*;
 
  @Service
  public class LLMService {
-     @Value("${APIKEY_OPENAI}")
-     static String APIKEY_OPENAI;
 
      ChatLanguageModel model = OpenAiChatModel.withApiKey("demo");
      
@@ -25,7 +23,7 @@ import dev.langchain4j.service.*;
      }
      
      public static void main(String[] args) {
-         ChatLanguageModel testModel = OpenAiChatModel.withApiKey(APIKEY_OPENAI);
+         ChatLanguageModel testModel = OpenAiChatModel.withApiKey(ApiKeys.API_KEY_OPEN_AI);
          AiRecommender aiRecommender = AiServices.create(AiRecommender.class, testModel);
          
          String userInput = "Hikaru Utada";

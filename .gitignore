@@ -31,5 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
-
+music-app-backend/src/main/java/music_app/music_app_backend/keys
 .env
