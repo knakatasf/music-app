@@ -22,7 +22,7 @@ import dev.langchain4j.service.*;
      }
 
      public String[] recommend(String input) {
-         ChatLanguageModel model = OpenAiChatModel.withApiKey(System.getenv("OPENAI_API_KEY"));
+         ChatLanguageModel model = OpenAiChatModel.withApiKey(appConfig.getOpenaiApiKey());
          AiRecommender aiRecommender = AiServices.create(AiRecommender.class, model);
 
          String[] recommends = aiRecommender.recommendBasedOn(input);
