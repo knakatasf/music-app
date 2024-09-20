@@ -18,6 +18,7 @@ public class User {
     private Set<UserFavorite> favorites;
 
     public User() {}
+    public User(Long id) { setId(id); }
     public User(String userName) {
         setUserName(userName);
     }

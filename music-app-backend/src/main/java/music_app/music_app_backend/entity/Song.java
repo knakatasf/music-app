@@ -21,6 +21,7 @@ public class Song {
     private Set<UserFavorite> favoriteSongs;
 
     public Song() {}
+    public Song(Long id) { setId(id); }
     public Song(String songName, String artistName) {
         setSongName(songName);
         setArtistName(artistName);
