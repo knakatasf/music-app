@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,10 +51,19 @@ public class MusicAppController {
         return "Song added to db";
     }
 
-    @GetMapping("/inputUserName")
-    public UserDTO inputUsername(String userName) {
+    @GetMapping("/inputUserName/{userName}")
+    public void inputUsername(String userName) {
+        String input = "Ed Sheeran";
         UserDTO userDTO = userService.findUserByUserName(userName);
-        return userDTO;
+        List<SongDTO> favoriteSongs;
+        favoriteSongs = userFavoriteService.getUserFavoriteSongs(userDTO.getId());
+        String recommendations;
+        if (favoriteSongs.isEmpty()) {
+            recommendations = llmService.recommend(input);
+        } else {
+            recommendations = llmService.recommend(input, favoriteSongs);
+        }
+        System.out.println(recommendations);
     }
 
 

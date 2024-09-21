@@ -1,5 +1,6 @@
 package music_app.music_app_backend.service;
 
+import music_app.music_app_backend.DTO.SongDTO;
 import music_app.music_app_backend.entity.Song;
 import music_app.music_app_backend.entity.User;
 import music_app.music_app_backend.entity.UserFavorite;
@@ -27,7 +28,7 @@ public class UserFavoriteService {
         }
     }
 
-    public List<Song> getUserFavoriteSongs(Long userId) {
+    public List<SongDTO> getUserFavoriteSongs(Long userId) {
         return userFavoriteRepository.findFavoriteSongsByUserId(userId);
     }
 }
