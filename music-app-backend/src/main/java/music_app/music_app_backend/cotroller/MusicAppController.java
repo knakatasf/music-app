@@ -13,8 +13,10 @@ import music_app.music_app_backend.service.SongService;
 import music_app.music_app_backend.service.UserFavoriteService;
 import music_app.music_app_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -64,6 +66,38 @@ public class MusicAppController {
             recommendations = llmService.recommend(input, favoriteSongs);
         }
         System.out.println(recommendations);
+    }
+
+    @GetMapping("/inputUserName")
+    public void inputUsernameTest() {
+        String userName = "Koichi1212";
+        String input = "Ed Sheeran";
+        UserDTO userDTO = userService.findUserByUserName(userName);
+        List<SongDTO> favoriteSongs;
+        favoriteSongs = userFavoriteService.getUserFavoriteSongs(userDTO.getId());
+        String recommendations;
+        if (favoriteSongs.isEmpty()) {
+            recommendations = llmService.recommend(input);
+        } else {
+            recommendations = llmService.recommend(input, favoriteSongs);
+        }
+        System.out.println(recommendations);
+    }
+
+    @GetMapping("/inputUserNames/{userName}")
+    public ResponseEntity<String> inputUsernameTest2(@PathVariable String userName) {
+        String input = "Ed Sheeran"; // dao
+        UserDTO userDTO = userService.findUserByUserName(userName);
+        List<SongDTO> favoriteSongs;
+        favoriteSongs = userFavoriteService.getUserFavoriteSongs(userDTO.getId());
+        String recommendations;
+        if (favoriteSongs.isEmpty()) {
+            recommendations = llmService.recommend(input);
+        } else {
+            recommendations = llmService.recommend(input, favoriteSongs);
+        }
+        System.out.println(recommendations);
+        return ResponseEntity.ok(userName);
     }
 
 
