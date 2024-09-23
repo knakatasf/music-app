@@ -1,0 +1,114 @@
+body {
+    background-color: black;
+}
+
+#head-container {
+    display: flex;
+    justify-content: center;
+}
+
+#head-container h1 {
+    color: white;
+}
+
+#submit-btn {
+    color: black;
+    background-color: white;
+    font-weight: bold;
+}
+
+#user-input-container {
+    display: flex;
+    justify-content: center;
+}
+
+#user-input {
+    width: 80%;
+    height: 50px;
+    font-size: 18px;
+}
+
+#btn-container {
+    flex-direction: row;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+#like-btn-container {
+    margin: 0 15px;
+}
+
+#dislike-btn-container {
+    margin: 0 15px;
+}
+
+.like-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.like-btn:hover {
+    outline: auto;
+}
+
+.dislike-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.dislike-btn:hover {
+    outline: auto;
+}
+
+#full-output {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#full-output button {
+    border-radius: 50%;
+    border: none;
+    background-color: black;
+}
+
+#output-container1 {
+    display: flex;
+    justify-content: center;
+}
+
+#output-container2 {
+    display: flex;
+    justify-content: center;
+}
+
+#output-container3 {
+    display: flex;
+    justify-content: center;
+}
+
+#output {
+    color: white;
+}
+
+.output-chunk {
+    margin: 30px;
+}
+
+#finish-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+#finish-btn {
+    width: 70px;
+    height: 40px;
+    color: black;
+    background-color: white;
+    font-weight: bold;
+}

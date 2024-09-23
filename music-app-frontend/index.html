@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Needs: output display, like/dislike buttons, user input -->
+    <div id="head-container">
+        <h1>
+            Welcome to the Music App
+        </h1>
+    </div>
+    <div id="user-input-container">
+        <input id="user-input" type="text" placeholder="Enter artist or song here...">
+        <button id="submit-btn">Submit</button>
+    </div>
+    <div id="full-output">
+        <div class="output-chunk" chunk-id="1">
+            <div id="output-container1">
+                <div id="output">
+                    song 1
+                    <!-- output inserted here -->
+                </div>
+            </div>
+        </div>
+        <div id="btn-container" button-id="1">
+            <div id="like-btn-container">
+                <button class="like-btn">
+                    👍
+                </button>
+            </div>
+            <div id="dislike-btn-container">
+                <button class="dislike-btn">
+                    👎
+                </button>
+            </div>
+        </div>
+        <div class="output-chunk" chunk-id="2">
+            <div id="output-container2">
+                <div id="output">
+                    song 2
+                    <!-- output inserted here -->
+                </div>
+            </div>
+        </div>
+        <div id="btn-container" button-id="2">
+            <div id="like-btn-container">
+                <button class="like-btn">
+                    👍
+                </button>
+            </div>
+            <div id="dislike-btn-container">
+                <button class="dislike-btn">
+                    👎
+                </button>
+            </div>
+        </div>
+        <div class="output-chunk" chunk-id="3">
+            <div id="output-container3">
+                <div id="output">
+                    song 3
+                    <!-- output inserted here -->
+                </div>
+            </div>
+        </div>
+        <div id="btn-container" button-id="3">
+            <div id="like-btn-container">
+                <button class="like-btn">
+                    👍
+                </button>
+            </div>
+            <div id="dislike-btn-container">
+                <button class="dislike-btn">
+                    👎
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="finish-btn-container">
+        <button id="finish-btn">
+            Done
+        </button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
