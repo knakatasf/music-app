@@ -1,5 +1,7 @@
 package music_app.music_app_backend.cotroller;
 
+import music_app.music_app_backend.DTO.SongDTO;
+import music_app.music_app_backend.DTO.UserDTO;
 import music_app.music_app_backend.entity.Song;
 import music_app.music_app_backend.entity.User;
 import music_app.music_app_backend.entity.UserFavorite;
@@ -7,11 +9,15 @@ import music_app.music_app_backend.repository.SongRepository;
 import music_app.music_app_backend.repository.UserFavoriteRepository;
 import music_app.music_app_backend.repository.UserRepository;
 import music_app.music_app_backend.service.LLMService;
+import music_app.music_app_backend.service.SongService;
+import music_app.music_app_backend.service.UserFavoriteService;
+import music_app.music_app_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,16 +25,16 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 public class MusicAppController {
     private final LLMService llmService;
-    private final SongRepository songRepository;
-    private final UserRepository userRepository;
-    private final UserFavoriteRepository userFavoriteRepository;
+    private final SongService songService;
+    private final UserService userService;
+    private final UserFavoriteService userFavoriteService;
 
     @Autowired
-    public MusicAppController(LLMService llmService, SongRepository songRepository, UserRepository userRepository, UserFavoriteRepository userFavoriteRepository) {
+    public MusicAppController(LLMService llmService, SongService songService, UserService userService, UserFavoriteService userFavoriteService) {
         this.llmService = llmService;
-        this.songRepository = songRepository;
-        this.userRepository = userRepository;
-        this.userFavoriteRepository = userFavoriteRepository;
+        this.songService = songService;
+        this.userService = userService;
+        this.userFavoriteService = userFavoriteService;
     }
 
     @GetMapping("")
@@ -40,19 +46,24 @@ public class MusicAppController {
 
     @GetMapping("/addSong")
     public String addSong() {
-        Song newSong = new Song("Test Song", "David");
-        songRepository.save(newSong);
+        SongDTO newSong = new SongDTO("Test Song", "David");
+        songService.insertNewSong(newSong);
         return "Song added to db";
     }
 
-    @GetMapping("/inputUserName")
-    public User loginByUsername(String userName) {
-        User user = userRepository.findByUserName(userName)
-                .orElseGet(() -> new User(userName));
-
-        List<Song> favorites = userFavoriteRepository.findFavoriteSongsByUserId(user.getId());
-
-        return user;
+    @GetMapping("/inputUserName/{userName}")
+    public void inputUsername(String userName) {
+        String input = "Ed Sheeran";
+        UserDTO userDTO = userService.findUserByUserName(userName);
+        List<SongDTO> favoriteSongs;
+        favoriteSongs = userFavoriteService.getUserFavoriteSongs(userDTO.getId());
+        String recommendations;
+        if (favoriteSongs.isEmpty()) {
+            recommendations = llmService.recommend(input);
+        } else {
+            recommendations = llmService.recommend(input, favoriteSongs);
+        }
+        System.out.println(recommendations);
     }
 
 
