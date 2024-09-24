@@ -1,5 +1,6 @@
 body {
     background-color: black;
+    font-family: "Kalam";
 }
 
 #head-container {
@@ -9,23 +10,39 @@ body {
 
 #head-container h1 {
     color: white;
+    font-size: 50px;
 }
 
 #submit-btn {
     color: black;
     background-color: white;
     font-weight: bold;
+    border-radius: 20px;
+    border-width: 2px;
+    transition: border-color 1000ms;
+    outline: none;
 }
 
 #user-input-container {
     display: flex;
     justify-content: center;
+    gap: 7px;
 }
 
 #user-input {
     width: 80%;
     height: 50px;
-    font-size: 18px;
+    font-size: 20px;
+    border-radius: 20px;
+    border-width: 2px;
+    transition: border-color 1000ms;
+    outline: none;
+    padding-left: 30px;
+    font-family: "Kalam";
+}
+
+#user-input::placeholder {
+    font-family: "Kalam";
 }
 
 #btn-container {

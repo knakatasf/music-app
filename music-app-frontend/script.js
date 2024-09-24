@@ -2,14 +2,28 @@ console.log("script connected")
 
 const userSelection = document.getElementById('full-output')
 const userCompleteSelection = document.getElementById('finish-btn-container')
-userSelection.style.display = 'none'
-userCompleteSelection.style.display = 'none'
 const inputText = document.getElementById('user-input')
 const submitBtn = document.getElementById('submit-btn')
 const doneBtn = document.getElementById('finish-btn')
 
+userSelection.style.display = 'none'
+userCompleteSelection.style.display = 'none'
+
 let userText = ""
 let selections = {}
+
+const interval = setInterval(changeBorderColor, 1000, inputText)
+
+let hue = 0
+
+function changeBorderColor(inputBar) {
+    hue += 15
+    if (hue > 360) {
+        hue = 0
+    }
+    submitBtn.style.borderColor = `hsl(${hue}, 100%, 50%)`
+    inputBar.style.borderColor = `hsl(${hue}, 100%, 50%)`
+}
 
 inputText.addEventListener('input', () => {
     userText = inputText.value
@@ -61,11 +75,7 @@ doneBtn.addEventListener('click', () => {
 document.addEventListener('click', (clickEvent) => {
     if (clickEvent.target.classList.contains('like-btn') || clickEvent.target.classList.contains('dislike-btn')) {
         const btnContainer = clickEvent.target.closest('#btn-container')
-        //const outputChunk = btnContainer.previousElementSibling
-        //const songInfo = outputChunk.querySelector('#output').textContent.trim()
-
         const chunkNum = btnContainer.getAttribute('button-id')
-
         if (clickEvent.target.classList.contains('like-btn')) {
             selections[chunkNum - 1] = true
             const dislikeButton = clickEvent.target.closest('#btn-container').querySelector('.dislike-btn');
@@ -74,6 +84,7 @@ document.addEventListener('click', (clickEvent) => {
         } else if (clickEvent.target.classList.contains('dislike-btn')) {
             selections[chunkNum - 1] = false
             const likeButton = clickEvent.target.closest('#btn-container').querySelector('.like-btn');
+            clickEvent.target.style.backgroundColor = '#C70039'
             likeButton.style.backgroundColor = 'black'
         }
     }
