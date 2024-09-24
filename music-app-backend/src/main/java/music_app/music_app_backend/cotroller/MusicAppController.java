@@ -42,8 +42,10 @@ public class MusicAppController {
     @GetMapping("")
     public void test() {
         String input = "Hikaru Utada";
-        String recommendation = llmService.recommend(input);
-        System.out.println(recommendation);
+        List<SongDTO> recommendations = llmService.recommend(input);
+        for (SongDTO song : recommendations) {
+            System.out.println(song);
+        }
     }
 
     @GetMapping("/addSong")
@@ -53,21 +55,6 @@ public class MusicAppController {
         return "Song added to db";
     }
 
-    @GetMapping("/inputUserName/{userName}")
-    public void inputUsername(String userName) {
-        String input = "Ed Sheeran";
-        UserDTO userDTO = userService.findUserByUserName(userName);
-        List<SongDTO> favoriteSongs;
-        favoriteSongs = userFavoriteService.getUserFavoriteSongs(userDTO.getId());
-        String recommendations;
-        if (favoriteSongs.isEmpty()) {
-            recommendations = llmService.recommend(input);
-        } else {
-            recommendations = llmService.recommend(input, favoriteSongs);
-        }
-        System.out.println(recommendations);
-    }
-
     @GetMapping("/inputUserName")
     public void inputUsernameTest() {
         String userName = "Koichi1212";
@@ -75,13 +62,15 @@ public class MusicAppController {
         UserDTO userDTO = userService.findUserByUserName(userName);
         List<SongDTO> favoriteSongs;
         favoriteSongs = userFavoriteService.getUserFavoriteSongs(userDTO.getId());
-        String recommendations;
+        List<SongDTO> recommendations;
         if (favoriteSongs.isEmpty()) {
             recommendations = llmService.recommend(input);
         } else {
             recommendations = llmService.recommend(input, favoriteSongs);
         }
-        System.out.println(recommendations);
+        for (SongDTO song : recommendations) {
+            System.out.println(song);
+        }
     }
 
     @GetMapping("/inputUserNames/{userName}")
@@ -90,13 +79,16 @@ public class MusicAppController {
         UserDTO userDTO = userService.findUserByUserName(userName);
         List<SongDTO> favoriteSongs;
         favoriteSongs = userFavoriteService.getUserFavoriteSongs(userDTO.getId());
-        String recommendations;
+        List<SongDTO> recommendations;
         if (favoriteSongs.isEmpty()) {
             recommendations = llmService.recommend(input);
         } else {
             recommendations = llmService.recommend(input, favoriteSongs);
         }
-        System.out.println(recommendations);
+        for (SongDTO song : recommendations) {
+            System.out.println(song);
+        }
+
         return ResponseEntity.ok(userName);
     }
 
