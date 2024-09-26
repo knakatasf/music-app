@@ -15,6 +15,7 @@ public class RegistrationController {
 
     @PostMapping(value = "/registration/signup", consumes = "application/json")
     public AppUser createUser(@RequestBody AppUser user) {
+        System.out.println(user);
         return repository.save(user);
     }
 }

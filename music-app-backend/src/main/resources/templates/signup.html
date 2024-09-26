@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Sign Up </title>
+    <title>Sign Up</title>
 </head>
 <body>
-<form action="/api/register" method="post">
+<form id="signup-form">
     <h1>Sign Up</h1>
     <label>
         Name
@@ -18,15 +18,21 @@
 </form>
 <a href="/login">Back to login</a>
 <script>
-    const submitBtn = document.getElementById('submit-btn')
-    submitBtn.addEventListener('click', () => {
-        const username = document.getElementById('username')
-        const password = document.getElementById('password')
+    const form = document.getElementById('signup-form')
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const username = document.getElementById('username').value
+        const password = document.getElementById('password').value
+
         const data = {
             username,
             password
         }
+
         const dataAsJson = JSON.stringify(data)
+
         fetch('/registration/signup', {
             method: 'POST',
             headers: {
@@ -34,7 +40,14 @@
             },
             body: dataAsJson
         }).then(response => {
-            // do nothing
+            if (!response.ok) {
+                return response.text().then(text => {throw new Error(text)})
+            }
+            return response.json()
+        }).then(data => {
+            console.log("Registration success", data)
+        }).catch((error) => {
+            console.log("Error", error)
         })
     })
 </script>

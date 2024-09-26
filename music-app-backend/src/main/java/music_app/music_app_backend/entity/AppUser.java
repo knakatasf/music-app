@@ -56,4 +56,11 @@ public class AppUser {
     public void setFavorites(Set<UserFavorite> favorites) {
         this.favorites = favorites;
     }
+
+    @Override
+    public String toString() {
+        return "AppUser {" +
+                "id=" +
+                ", username=" + userName + ", " + password + ", }";
+    }
 }
