@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface UserFavoriteRepository extends JpaRepository<UserFavorite, Long> {
 
-    @Query("SELECT uf.song FROM UserFavorite uf WHERE uf.user.id = :userId")
-    List<SongDTO> findFavoriteSongsByUserId(Long userId);
+//    @Query("SELECT uf.song FROM UserFavorite uf WHERE uf.user.id = :userId")
+//    List<SongDTO> findFavoriteSongsByUserId(Long userId);
 
     boolean existsByUserIdAndSongId(Long userId, Long songId);
 }

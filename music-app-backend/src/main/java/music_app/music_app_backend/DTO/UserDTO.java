@@ -1,6 +1,6 @@
 package music_app.music_app_backend.DTO;
 
-import music_app.music_app_backend.entity.User;
+import music_app.music_app_backend.entity.AppUser;
 
 public class UserDTO {
     private Long id;
@@ -27,7 +27,7 @@ public class UserDTO {
         this.userName = userName;
     }
 
-    public static UserDTO fromEntity(User user) {
+    public static UserDTO fromEntity(AppUser user) {
         return new UserDTO(user.getId(), user.getUserName());
     }
 }

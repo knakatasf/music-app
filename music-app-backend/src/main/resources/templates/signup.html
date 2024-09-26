@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up </title>
+</head>
+<body>
+<form action="/api/register" method="post">
+    <h1>Sign Up</h1>
+    <label>
+        Name
+        <input id="username" type="text" name="name" required>
+    </label>
+    <label>
+        Password
+        <input id="password" type="text" name="password" required>
+    </label>
+    <input id="submit-btn" type="submit" value="submit">
+</form>
+<a href="/login">Back to login</a>
+<script>
+    const submitBtn = document.getElementById('submit-btn')
+    submitBtn.addEventListener('click', () => {
+        const username = document.getElementById('username')
+        const password = document.getElementById('password')
+        const data = {
+            username,
+            password
+        }
+        const dataAsJson = JSON.stringify(data)
+        fetch('/registration/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: dataAsJson
+        }).then(response => {
+            // do nothing
+        })
+    })
+</script>
+</body>
+</html>

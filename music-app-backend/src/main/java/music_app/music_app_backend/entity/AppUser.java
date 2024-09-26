@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,13 +14,15 @@ public class User {
     @Column(unique = true, nullable = false)
     private String userName;
 
+    private String password;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserFavorite> favorites;
 
-    public User() {}
-    public User(Long id) { setId(id); }
-    public User(String userName) {
-        setUserName(userName);
+    public AppUser() {}
+    public AppUser(Long id) { setId(id); }
+    public AppUser(String userName, String password) {
+        setUserName(userName); setPassword(password);
     }
 
     public Long getId() {
@@ -37,6 +39,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<UserFavorite> getFavorites() {

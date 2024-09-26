@@ -5,9 +5,7 @@ import music_app.music_app_backend.entity.Song;
 
 public class SongDTO {
     private Long id;
-    @Description("name of a song")
     private String songName;
-    @Description("name of the song's artist")
     private String artistName;
 
     public SongDTO() {}
