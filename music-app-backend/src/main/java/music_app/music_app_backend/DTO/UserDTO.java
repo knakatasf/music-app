@@ -5,6 +5,7 @@ import music_app.music_app_backend.entity.AppUser;
 public class UserDTO {
     private Long id;
     private String userName;
+    private String password;
 
     public UserDTO() {}
 
@@ -26,6 +27,10 @@ public class UserDTO {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPassword() { return password; }
 
     public static UserDTO fromEntity(AppUser user) {
         return new UserDTO(user.getId(), user.getUserName());

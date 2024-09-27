@@ -4,7 +4,7 @@
     <title>Sign Up</title>
 </head>
 <body>
-<form id="signup-form">
+<form id="signup-form" action="/registration/signup" method="post">
     <h1>Sign Up</h1>
     <label>
         Name
@@ -14,42 +14,40 @@
         Password
         <input id="password" type="text" name="password" required>
     </label>
-    <input id="submit-btn" type="submit" value="submit">
+    <button id="submit" type="submit">Sign Up</button>
 </form>
 <a href="/login">Back to login</a>
 <script>
-    const form = document.getElementById('signup-form')
+    const form = document.getElementById('signup-form');
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault()
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-        const username = document.getElementById('username').value
-        const password = document.getElementById('password').value
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
         const data = {
-            username,
+            userName: username,
             password
+        };
+
+        const target = '/req/signup';
+
+        try {
+            const response = await fetch(target, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            console.log(result);
+        } catch (error) {
+            console.error('Error:', error);
         }
-
-        const dataAsJson = JSON.stringify(data)
-
-        fetch('/registration/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: dataAsJson
-        }).then(response => {
-            if (!response.ok) {
-                return response.text().then(text => {throw new Error(text)})
-            }
-            return response.json()
-        }).then(data => {
-            console.log("Registration success", data)
-        }).catch((error) => {
-            console.log("Error", error)
-        })
-    })
+    });
 </script>
 </body>
 </html>

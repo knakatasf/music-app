@@ -1,5 +1,6 @@
 package music_app.music_app_backend.cotroller;
 
+import music_app.music_app_backend.DTO.UserDTO;
 import music_app.music_app_backend.entity.AppUser;
 import music_app.music_app_backend.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,10 @@ public class RegistrationController {
     @Autowired
     private AppUserRepository repository;
 
-    @PostMapping(value = "/registration/signup", consumes = "application/json")
-    public AppUser createUser(@RequestBody AppUser user) {
+    @PostMapping(value = "/req/signup", consumes = "application/json")
+    public String createUser(@RequestBody UserDTO user) {
         System.out.println(user);
-        return repository.save(user);
+        repository.save(new AppUser(user.getUserName(), user.getPassword()));
+        return "redirect:/req/login";
     }
 }
