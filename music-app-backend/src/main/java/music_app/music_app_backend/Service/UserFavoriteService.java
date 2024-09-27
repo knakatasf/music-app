@@ -1,14 +1,11 @@
-package music_app.music_app_backend.service;
+package music_app.music_app_backend.Service;
 
-import music_app.music_app_backend.DTO.SongDTO;
-import music_app.music_app_backend.entity.AppUser;
-import music_app.music_app_backend.entity.Song;
-import music_app.music_app_backend.entity.UserFavorite;
-import music_app.music_app_backend.repository.UserFavoriteRepository;
+import music_app.music_app_backend.Entity.AppUser;
+import music_app.music_app_backend.Entity.Song;
+import music_app.music_app_backend.Entity.UserFavorite;
+import music_app.music_app_backend.Repository.UserFavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserFavoriteService {

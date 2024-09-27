@@ -1,4 +1,4 @@
-package music_app.music_app_backend.entity;
+package music_app.music_app_backend.Entity;
 
 
 import jakarta.persistence.*;
