@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -28,14 +30,24 @@ public class SecurityConfig {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(appUserService);
+        authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(httpForm -> httpForm.loginPage("/req/login").permitAll())
+                .formLogin(httpForm -> {
+                    httpForm.loginPage("/req/login").permitAll();
+                    httpForm.loginProcessingUrl("/login");
+                    httpForm.defaultSuccessUrl("/index", true);
+                    httpForm.failureUrl("/req/login?error=true");
+                })
 
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/req/signup", "/css/**", "/js/**").permitAll();
