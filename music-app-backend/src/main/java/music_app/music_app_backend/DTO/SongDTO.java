@@ -1,6 +1,7 @@
 package music_app.music_app_backend.DTO;
 
-import music_app.music_app_backend.Entity.Song;
+import dev.langchain4j.model.output.structured.Description;
+import music_app.music_app_backend.entity.Song;
 
 public class SongDTO {
     private Long id;

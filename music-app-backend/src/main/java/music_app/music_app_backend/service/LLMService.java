@@ -1,12 +1,17 @@
-package music_app.music_app_backend.Service;
+package music_app.music_app_backend.service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import music_app.music_app_backend.DTO.SongDTO;
+import music_app.music_app_backend.entity.Song;
 import org.springframework.stereotype.Service;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.service.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LLMService {
@@ -28,14 +33,15 @@ public class LLMService {
         String recommendBasedOnInputAndFavorites(String input, List<SongDTO> favoriteSongs);
     }
 
-    public List<SongDTO> recommend(String input) {
+    public List<String> recommend(String input) {
         AiRecommender aiRecommender = AiServices.create(AiRecommender.class, chatLanguageModel);
         String recommendations = aiRecommender.recommendBasedOnInput(input);
+        System.out.println(recommendations);
         String[] li = recommendations.split(",");
 
-        List<SongDTO> songs = new ArrayList<>();
+        List<String> songs = new ArrayList<>();
         for (String songByArtist : li) {
-            songs.add(SongDTO.fromString(songByArtist.trim()));
+            songs.add(songByArtist.trim());
         }
         return songs;
     }

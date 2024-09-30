@@ -1,8 +1,8 @@
-package music_app.music_app_backend.Service;
+package music_app.music_app_backend.service;
 
-import music_app.music_app_backend.DTO.AppUserDTO;
-import music_app.music_app_backend.Entity.AppUser;
-import music_app.music_app_backend.Repository.AppUserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import music_app.music_app_backend.entity.AppUser;
+import music_app.music_app_backend.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,29 +18,31 @@ public class AppUserService implements UserDetailsService {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    private String loggedUsername;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<AppUser> user = appUserRepository.findByUserName(username);
         if (user.isPresent()) {
-            AppUser appUser = user.get();
+            AppUser au = user.get();
+            loggedUsername = au.getUserName();
+            System.out.println("User \"" + loggedUsername + "\" logged in.");
             return User.builder()
-                    .username(appUser.getUserName())
-                    .password(appUser.getPassword())
+                    .username(au.getUserName())
+                    .password(au.getPassword())
                     .build();
         } else {
             throw new UsernameNotFoundException(username);
         }
     }
 
-    public AppUserDTO createUser(AppUserDTO appUserDTO) {
-        appUserRepository.save(new AppUser(
-                appUserDTO.getUserName(),
-                appUserDTO.getPassword()
-        ));
-        return appUserDTO;
+    public String getLoggedUsername() {
+        return loggedUsername;
     }
 
-    public Optional<AppUser> findByUsername(String userName) {
-        return appUserRepository.findByUserName(userName);
+    public Long findIdByUserName(String username) {
+        AppUser appUser = appUserRepository.findByUserName(username).orElseThrow(() ->
+                new EntityNotFoundException(username + " doesn't exist,"));
+        return appUser.getId();
     }
 }

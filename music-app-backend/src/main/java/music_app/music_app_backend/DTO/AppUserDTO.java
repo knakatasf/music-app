@@ -1,6 +1,6 @@
 package music_app.music_app_backend.DTO;
 
-import music_app.music_app_backend.Entity.AppUser;
+import music_app.music_app_backend.entity.AppUser;
 
 public class AppUserDTO {
     private Long id;
@@ -18,12 +18,6 @@ public class AppUserDTO {
         setUserName(userName);
     }
 
-    public AppUserDTO(Long id, String userName, String password) {
-        setId(id);
-        setUserName(userName);
-        setPassword(password);
-    }
-
     public Long getId() { return id; }
     public void setId(Long id) {
         this.id = id;
@@ -33,9 +27,10 @@ public class AppUserDTO {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
 
     public static AppUserDTO fromEntity(AppUser user) {
         return new AppUserDTO(user.getId(), user.getUserName());
