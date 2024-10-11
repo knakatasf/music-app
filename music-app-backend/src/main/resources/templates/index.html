@@ -18,21 +18,12 @@
             GrooveGuideAI
         </h1>
     </div>
-    <div id="search-choice">
-        <form action="">
-            <label>
-                Search by genre
-                <input id="search-genre" type="radio" name="searchType" value="genre">
-            </label>
-            <label>
-                Search by artist
-                <input id="search-artist" type="radio" name="searchType" value="artist" checked>
-            </label>
-        </form>
-    </div>
     <div id="user-input-container">
-        <input id="user-input" type="text" placeholder="Enter here after selection...">
+        <input id="user-input" type="text" placeholder="Enter input here...">
         <button id="submit-btn">Submit</button>
+    </div>
+    <div id="loading-circle-container">
+        <div id="loading-circle"></div>
     </div>
     <div id="full-output">
         <div class="output-chunk" chunk-id="1">
